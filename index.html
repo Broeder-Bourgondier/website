@@ -31,6 +31,16 @@
     a {
       text-decoration: none;
     }
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 20px;
+    }
+    @media (max-width: 500px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -44,26 +54,35 @@
   
   <br><br>
   
-  <h3>About</h3>
-  <ul>
-    <li><a href="about.html">Over Broeder Bourgondiër</a></li>
-  </ul>
-  
-  <h2>Upcoming Events</h2>
-  <ul>
-  <p>No events coming up.</p>
-  </ul>
+  <div class="two-column">
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="about.html">Over Broeder Bourgondiër</a></li>
+        <li><a href="https://discord.gg/PjxcQh43cs">Join our Discord</a></li>
+      </ul>
+      
+      <h2>Redactie</h2>
+      <ul>
+        <p>No writing yet. Coming soon!</p>
+      </ul>
+    </div>
+    
+    <div>
+      <h2>Upcoming Events</h2>
+      <ul>
+      <p>No events coming up.</p>
+      </ul>
 
-  <h2>Past Events</h2>
-  <ul>
-    <li><a href="events/29_10_2025.html">Pudding met vork @ de Kouter - 29 Oct '25</a></li>
-  </ul>
+      <h3>Past Events</h3>
+      <ul>
+        <li><a href="events/29_10_2025.html">Pudding met vork @ de Kouter - 29 Oct '25</a></li>
+      </ul>
+    </div>
+  </div>
 
-  <hr>
 
-  <footer>
-    <p><a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | <a href="https://github.com/Broeder-Bourgondier">GitHub</a></p>
-  </footer>
+
 
 </body>
 </html>
