@@ -28,41 +28,181 @@
   <link rel="apple-touch-icon" href="assets/bb.png">
   
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
     a {
       text-decoration: none;
+      color: #8b4513;
+      transition: color 0.2s ease;
+    }
+    
+    a:hover {
+      color: #654321;
+      text-decoration: underline;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    
+    .header img {
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #2c2c2c;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #2c2c2c;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #8b4513;
+    }
+    
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #2c2c2c;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    ul li {
+      padding: 0.75rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #8b4513;
+      font-weight: bold;
+    }
+    
+    ul li a {
+      font-size: 1.1rem;
+    }
+    
+    section {
+      margin-bottom: 2.5rem;
+    }
+    
+    section:last-child {
+      margin-bottom: 0;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    footer a {
+      margin: 0 0.5rem;
+    }
+    
+    .no-events {
+      color: #888;
+      font-style: italic;
+      padding-left: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header img {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div style="display: flex; align-items: center;">
-    <img src="assets/bb.webp" alt="BB Logo" width="100" style="margin-right: 20px;">
+  <div class="header">
+    <img src="assets/bb.webp" alt="BB Logo" width="100">
     <div>
-      <h1 style="margin: 0; display: inline;">Broeder Bourgondiër</h1>
-      <p style="margin: 0;">Gentse studentenvereniging</p>
+      <h1>Broeder Bourgondiër</h1>
+      <p>Gentse studentenvereniging</p>
     </div>
   </div>
   
-  <br><br>
-  
-  <h3>About</h3>
-  <ul>
-    <li><a href="about.html">Over Broeder Bourgondiër</a></li>
-  </ul>
-  
-  <h2>Upcoming Events</h2>
-  <ul>
-  <p>No events coming up.</p>
-  </ul>
+  <div class="content-wrapper">
+    <section>
+      <h3>About</h3>
+      <ul>
+        <li><a href="about.html">Over Broeder Bourgondiër</a></li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Redactie</h2>
+      <p>Welkom bij de redactie van Broeder Bourgondiër. Hier vind je onze artikelen, recensies en verhalen over de beste eetplekken in Gent.</p>
+      <ul>
+        <li><a href="#">Recensies</a></li>
+        <li><a href="#">Artikelen</a></li>
+        <li><a href="#">Beste plekjes</a></li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Upcoming Events</h2>
+      <p class="no-events">No events coming up.</p>
+    </section>
 
-  <h2>Past Events</h2>
-  <ul>
-    <li><a href="events/29_10_2025.html">Pudding met vork @ de Kouter - 29 Oct '25</a></li>
-  </ul>
-
-  <hr>
+    <section>
+      <h2>Past Events</h2>
+      <ul>
+        <li><a href="events/29_10_2025.html">Pudding met vork @ de Kouter - 29 Oct '25</a></li>
+      </ul>
+    </section>
+  </div>
 
   <footer>
-    <p><a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | <a href="https://github.com/Broeder-Bourgondier">GitHub</a></p>
+    <p><a href="https://discord.gg/PjxcQh43cs">Join our Discord</a></p>
   </footer>
 
 </body>

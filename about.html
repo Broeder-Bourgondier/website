@@ -28,64 +28,148 @@
   <link rel="apple-touch-icon" href="assets/bb.png">
   
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
     a {
       text-decoration: none;
+      color: #8b4513;
+      transition: color 0.2s ease;
     }
-    ul {
-      list-style-type: none;
-      padding-left: 1.5em;
+    
+    a:hover {
+      color: #654321;
+      text-decoration: underline;
     }
-    li::before {
-      content: "‣ ";
-      color: black;
-      margin-right: 0.5em;
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
     }
+    
+    .header img {
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #2c2c2c;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
     .content {
       max-width: 700px;
-      line-height: 1.6;
+      line-height: 1.8;
     }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #2c2c2c;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #8b4513;
+    }
+    
     .content p {
-      margin-bottom: 1em;
+      margin-bottom: 1.5em;
+      font-size: 1.05rem;
+    }
+    
+    .content p:last-of-type {
+      font-style: italic;
+      color: #666;
+      margin-top: 2em;
+      font-size: 0.95rem;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    footer a {
+      margin: 0 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header img {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div style="display: flex; align-items: center;">
-    <img src="assets/bb.webp" alt="BB Logo" width="100" style="margin-right: 20px;">
+  <div class="header">
+    <img src="assets/bb.webp" alt="BB Logo" width="100">
     <div>
-      <h1 style="margin: 0; display: inline;">Broeder Bourgondiër</h1>
-      <p style="margin: 0;">Gentse studentenvereniging</p>
+      <h1>Broeder Bourgondiër</h1>
+      <p>Gentse studentenvereniging</p>
     </div>
   </div>
   
-  <br><br>
-  
-  <div class="content">
-    <h2>About</h2>
-    <p>
-      Broeder bourgondiër is de nieuwste en gezelligste studentenvereniging in Gent. 
-      Bij ons is er een plaatsje voor alle levensgenieters en fijnproevers, die willen helpen bouwen
-      aan een community voor en door studenten.
-    </p>
-    <p>
-      Heb je zin om met een fijne groep mensen af een toe lekker op restaurant te gaan en deel te nemen
-      aan potlucks, kaas- en wijnavonden, brouwerijbezoeken, enzovoort? Bij broeder bourgondiër
-      gaan we op zoek naar de beste plekjes waar studenten tussen al het studeren door kunnen genieten 
-      aan voordelige prijzen, dichtbij campus, ... Volgens deze criteria beoordelen we onze bezoeken in
-      blog posts, en bekronen we bijvoorbeeld telkens na een aantal weken onderzoek de beste frituur,
-      de bakkerij met de goedkoopste koffiekoeken, noem maar op!
-    </p>
-    <p>
-      Of jij nu een echte gastronoom bent, aspirant-journalist, organisatorisch talent of gewoon zin 
-      hebt om samen lekker te gaan eten, broeder bourgondiër verwelkomt jou met open armen!
-    </p>
-    <p style="font-style: italic; color: #666; margin-top: 2em;">Depuis 2025</p>
+  <div class="content-wrapper">
+    <div class="content">
+      <h2>About</h2>
+      <p>
+        Broeder bourgondiër is de nieuwste en gezelligste studentenvereniging in Gent. 
+        Bij ons is er een plaatsje voor alle levensgenieters en fijnproevers, die willen helpen bouwen
+        aan een community voor en door studenten.
+      </p>
+      <p>
+        Heb je zin om met een fijne groep mensen af een toe lekker op restaurant te gaan en deel te nemen
+        aan potlucks, kaas- en wijnavonden, brouwerijbezoeken, enzovoort? Bij broeder bourgondiër
+        gaan we op zoek naar de beste plekjes waar studenten tussen al het studeren door kunnen genieten 
+        aan voordelige prijzen, dichtbij campus, ... Volgens deze criteria beoordelen we onze bezoeken in
+        blog posts, en bekronen we bijvoorbeeld telkens na een aantal weken onderzoek de beste frituur,
+        de bakkerij met de goedkoopste koffiekoeken, noem maar op!
+      </p>
+      <p>
+        Of jij nu een echte gastronoom bent, aspirant-journalist, organisatorisch talent of gewoon zin 
+        hebt om samen lekker te gaan eten, broeder bourgondiër verwelkomt jou met open armen!
+      </p>
+      <p>Depuis 2025</p>
+    </div>
   </div>
 
-  <hr>
-
   <footer>
-    <p><a href="index.html">Home</a> | <a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | <a href="https://github.com/Broeder-Bourgondier">GitHub</a></p>
+    <p><a href="index.html">Home</a> | <a href="https://discord.gg/PjxcQh43cs">Join our Discord</a></p>
   </footer>
 
 </body>
