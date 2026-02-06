@@ -123,6 +123,102 @@
       margin-bottom: 0;
     }
     
+    /* Event Cards */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .event-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .event-card a {
+      color: inherit;
+    }
+    
+    .event-card a:hover {
+      text-decoration: none;
+    }
+    
+    .event-thumbnail {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .event-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .event-content {
+      padding: 1.5rem;
+    }
+    
+    .event-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #2c2c2c;
+      margin-bottom: 0.5rem;
+    }
+    
+    .event-date {
+      color: #8b4513;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .event-description {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .event-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+    
+    .event-badge.ongoing {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+    
+    .event-badge.past {
+      background: #f5f5f5;
+      color: #666;
+    }
+    
     footer {
       text-align: center;
       padding: 1.5rem 0;
@@ -137,7 +233,10 @@
     .no-events {
       color: #888;
       font-style: italic;
-      padding-left: 1.5rem;
+      padding: 1rem;
+      text-align: center;
+      background: white;
+      border-radius: 8px;
     }
     
     @media (max-width: 768px) {
@@ -157,6 +256,10 @@
       
       .header h1 {
         font-size: 2rem;
+      }
+      
+      .events-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -190,14 +293,51 @@
     
     <section>
       <h2>Upcoming Events</h2>
-      <p class="no-events">No events coming up.</p>
+      <div class="events-grid">
+        
+        <!-- Featured Event: De Grote Friet Cup -->
+        <div class="event-card">
+          <a href="grote-friet-cup.html">
+            <div class="event-thumbnail">
+              <img src="assets/frituur.png" alt="De Grote Friet Cup">
+            </div>
+            <div class="event-content">
+              <div class="event-title">De Grote Friet Cup</div>
+              <div class="event-date">📅 Elke donderdag vanaf 12 februari</div>
+              <p class="event-description">
+                Vergezel ons in onze zoektocht naar de beste frituur in Gent! 
+                Elke week bezoeken en beoordelen wij een nieuwe frituur.
+              </p>
+              <span class="event-badge ongoing">🔥 Bezig</span>
+            </div>
+          </a>
+        </div>
+        
+      </div>
     </section>
 
     <section>
       <h2>Past Events</h2>
-      <ul>
-        <li><a href="events/29_10_2025.html">Pudding met vork @ de Kouter - 29 Oct '25</a></li>
-      </ul>
+      <div class="events-grid">
+        
+        <!-- Past Event Example -->
+        <div class="event-card">
+          <a href="events/29_10_2025.html">
+            <div class="event-thumbnail">
+              <img src="assets/pudding-tn.png" alt="Pudding met Vork">
+            </div>
+            <div class="event-content">
+              <div class="event-title">Pudding met vork</div>
+              <div class="event-date">📅 29 oktober 2025</div>
+              <p class="event-description">
+                Join Broeder Bourgondiër for a fun and delicious pudding event. Bring your own pudding and vork!
+              </p>
+              <span class="event-badge past">Afgelopen</span>
+            </div>
+          </a>
+        </div>
+        
+      </div>
     </section>
   </div>
 

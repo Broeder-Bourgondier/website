@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Grote Friet Cup - Broeder Bourgondiër</title>
+  <meta name="description" content="Vergezeld ons in onze zoektocht naar de beste frituur in Gent! Elke week bezoeken we een nieuwe frituur en beoordelen we de kwaliteit, prijs en sfeer.">
+  
+  <link rel="icon" type="image/png" href="assets/bb-min.png">
+  <link rel="apple-touch-icon" href="assets/bb_new.png">
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    a {
+      text-decoration: none;
+      color: #8b4513;
+      transition: color 0.2s ease;
+    }
+    
+    a:hover {
+      color: #654321;
+      text-decoration: underline;
+    }
+    
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    
+    .header img {
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #2c2c2c;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    /* Event Hero – text only, left aligned */
+    .event-hero {
+      max-width: 900px;
+      margin: 4rem 0 4rem;
+      padding: 0 1rem;
+      text-align: left;
+    }
+
+    .event-hero h1 {
+      font-size: clamp(3.2rem, 6vw, 4.8rem);
+      color: #2c2c2c;
+      margin-bottom: 1.5rem;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .event-hero p {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .event-hero .subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      color: #555;
+    }
+
+    .event-hero .subtitle a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    
+    /* Section Styles */
+    section {
+      margin-bottom: 4rem;
+    }
+    
+    h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #2c2c2c;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #8b4513;
+    }
+    
+    /* Agenda Timeline */
+    .agenda {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .agenda-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-left: 3px solid #8b4513;
+      margin-bottom: 1rem;
+      background: #fafafa;
+      border-radius: 4px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .agenda-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .agenda-item.completed {
+      border-left-color: #4caf50;
+      opacity: 0.8;
+    }
+    
+    .agenda-item.upcoming {
+      border-left-color: #ffd54f;
+    }
+    
+    .agenda-date {
+      width: 170px;          
+      flex-shrink: 0;        
+      font-weight: bold;
+      color: #8b4513;
+      font-size: 1.1rem;
+    }
+
+    .agenda-location {
+      flex: 1;
+      font-size: 1.1rem;
+    }
+    
+    .agenda-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .agenda-status.completed {
+      background: #4caf50;
+      color: white;
+    }
+    
+    .agenda-status.upcoming {
+      background: #ffd54f;
+      color: #333;
+    }
+
+    /* Agenda + Map layout */
+    .agenda-map-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    /* Map container */
+    .agenda-map {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .agenda-map #map {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .agenda-map-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .agenda-map #map {
+        min-height: 350px;
+      }
+    }
+    
+    /* Restaurant Cards */
+    .restaurants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .restaurant-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .restaurant-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .restaurant-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #e0e0e0;
+    }
+    
+    .restaurant-content {
+      padding: 1.5rem;
+    }
+    
+    .restaurant-header {
+      margin-bottom: 1rem;
+    }
+    
+    .restaurant-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2c2c2c;
+      margin-bottom: 0.25rem;
+    }
+    
+    .restaurant-location {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    .restaurant-date {
+      color: #8b4513;
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    .restaurant-description {
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .restaurant-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: #fafafa;
+      border-radius: 6px;
+    }
+    
+    .rating-label {
+      font-weight: 600;
+      margin-right: 0.5rem;
+      color: #666;
+    }
+    
+    .rating-stars {
+      color: #ffd54f;
+      font-size: 1.2rem;
+    }
+    
+    .restaurant-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .highlight-tag {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .highlight-tag.price {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+    
+    .highlight-tag.student {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+    
+    .restaurant-details {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .detail-label {
+      color: #666;
+      font-weight: 600;
+    }
+    
+    .detail-value {
+      color: #333;
+    }
+    
+    .read-more {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background: #8b4513;
+      color: white;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+    
+    .read-more:hover {
+      background: #654321;
+      text-decoration: none;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: #666;
+      font-size: 0.95rem;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 4rem;
+    }
+    
+    footer a {
+      margin: 0 0.5rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header img {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .event-hero {
+        padding: 2rem 1rem;
+      }
+      
+      .event-hero h2 {
+        font-size: 2rem;
+      }
+      
+      .agenda-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .agenda-date {
+        margin-bottom: 0.5rem;
+      }
+      
+      .agenda-status {
+        margin-top: 0.5rem;
+      }
+      
+      .restaurants-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <img src="assets/bb_new.webp" alt="BB Logo" width="100">
+    <div>
+      <h1>Broeder Bourgondiër</h1>
+      <p>Gentse studentenvereniging</p>
+    </div>
+  </div>
+  
+  <!-- Event Hero -->
+  <section class="event-hero">
+    <h1>De Grote Friet Cup</h1>
+
+    <p>
+      Vergezel ons in onze zoektocht naar de beste frituur in Gent! 
+      Elke week bezoeken en beoordelen wij een nieuwe frituur, 
+      en aan het einde van het semester bekronen wij de beste.
+    </p>
+
+  </section>
+
+  <!-- Agenda + Map -->
+  <section>
+    <h3>Kalender & Frituurkaart</h3>
+
+    <div class="agenda-map-grid">
+      <!-- Agenda -->
+      <div class="agenda">
+        <div class="agenda-item upcoming" data-id="friet-time">
+          <div class="agenda-date">Week 1 - Do 12/02 18u</div>
+          <div class="agenda-location">Friet Time Gent - Lammerstraat 9</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="gouden-sate">
+          <div class="agenda-date">Week 2 - 19/02 18u</div>
+          <div class="agenda-location">De Gouden Saté - Sint-Pietersplein 28</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="chasse-patat">
+          <div class="agenda-date">Week 3 - 26/02 18u</div>
+          <div class="agenda-location">Friterie Chasse Patat - Ijzerlaan 9</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="bij-filip">
+          <div class="agenda-date">Week 4 - 5/03 18u</div>
+          <div class="agenda-location">Frituur Bij Filip - Groentenmarkt</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="benjis">
+          <div class="agenda-date">Week 5 - 12/03 18u</div>
+          <div class="agenda-location">Frituur Benji’s - Sint-Kwintensberg 56</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="emilys">
+          <div class="agenda-date">Week 6 - 19/03 18u</div>
+          <div class="agenda-location">Emily's - Zwijnaardsesteenweg 153</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="frites-atelier">
+          <div class="agenda-date">Week 7 - 26/03 18u</div>
+          <div class="agenda-location">Frites Atelier - Groentenmarkt 20</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="super-friet">
+          <div class="agenda-date">Week 8 - 2/04 18u</div>
+          <div class="agenda-location">Super Friet - Brusselsesteenweg 376</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="louiss">
+          <div class="agenda-date">Week 11 - 23/04 18u</div>
+          <div class="agenda-location">Frituur Louiss - Sint-Kwintensberg 34</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+
+        <div class="agenda-item upcoming" data-id="t-pleintje">
+          <div class="agenda-date">Week 13 - 7/05 18u</div>
+          <div class="agenda-location">Frituur 't Pleintje - Zwijnaardsesteenweg 318</div>
+          <span class="agenda-status upcoming">Upcoming</span>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="agenda-map">
+        <div id="map"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reviews Section -->
+  <section>
+    <h3>Onze Bezoeken</h3>
+    
+    <p>Nog geen bezoeken gedaan</p>
+
+    <!-- Example frituur info -->
+
+    <!--
+    <div class="restaurants-grid">
+      <div class="restaurant-card">
+        <img src="assets/placeholder-frituur.jpg" alt="Frituur" class="restaurant-image">
+        <div class="restaurant-content">
+          <div class="restaurant-header">
+            <h4 class="restaurant-name">Frituur</h4>
+            <p class="restaurant-location">📍 Sint-Michielsplein 10, 9000 Gent</p>
+          </div>
+          
+          <p class="restaurant-date">Bezocht op 10 februari 2026</p>
+          
+          <p class="restaurant-description">
+            Een klassieke frituur in het hart van de studentenbuurt. Bekend om hun kroketten 
+            en vriendelijke bediening. Ideaal voor een snelle hap tussen de lessen.
+          </p>
+          
+          <div class="restaurant-rating">
+            <span class="rating-label">Onze beoordeling:</span>
+            <span class="rating-stars">★★★★☆</span>
+          </div>
+          
+          <div class="restaurant-highlights">
+            <span class="highlight-tag">Goed bereikbaar</span>
+            <span class="highlight-tag student">Studentenkorting</span>
+            <span class="highlight-tag price">€ Betaalbaar</span>
+          </div>
+          
+          <div class="restaurant-details">
+            <div class="detail-row">
+              <span class="detail-label">Kleine friet:</span>
+              <span class="detail-value">€3,20</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Frikandel:</span>
+              <span class="detail-value">€2,50</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Kroket:</span>
+              <span class="detail-value">€2,30</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Studentenkorting:</span>
+              <span class="detail-value">10% op vertoon studentenkaart</span>
+            </div>
+          </div>
+          
+          <a href="#" class="read-more">Lees volledige review →</a>
+        </div>
+      </div>
+      
+    </div>
+    -->
+
+  </section>
+
+  <footer>
+    <p>
+      <a href="index.html">Home</a> | 
+      <a href="about.html">About</a> | 
+      <a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | 
+      <a href="mailto:bestuur@broederbourgondier.be">bestuur@broederbourgondier.be</a>
+    </p>
+  </footer>
+
+  <script>
+    var map = L.map('map').setView([51.0436, 3.7284], 13.5);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var defaultIcon = L.icon({
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41]
+    });
+
+    var highlightIcon = L.icon({
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      iconSize: [35, 56],
+      iconAnchor: [17, 56]
+    });
+
+    var locations = [
+        { id: "friet-time", name: "Friet Time Gent", address: "Lammerstraat 9, 9000 Gent", coords: [51.04819907933057, 3.7278912997994698] },
+        { id: "gouden-sate", name: "De Gouden Saté", address: "Sint-Pietersplein 28, 9000 Gent", coords: [51.04173115658245, 3.726263601095631] },
+        { id: "chasse-patat", name: "Friterie Chasse Patat", address: "Ijzerlaan 9, 9000 Gent", coords: [51.04278203052914, 3.718412597164473] },
+        { id: "bij-filip", name: "Frituur Bij Filip", address: "Groentenmarkt, 9000 Gent", coords: [51.05607614004983, 3.72221192678657] },
+        { id: "benjis", name: "Frituur Benji’s", address: "Sint-Kwintensberg 56, 9000 Gent", coords: [51.04491145188629, 3.7235984709638585] },
+        { id: "emilys", name: "Emily's", address: "Zwijnaardsesteenweg 153, 9000 Gent", coords: [51.03348340598059, 3.724808099799014] },
+        { id: "frites-atelier", name: "Frites Atelier", address: "Groentenmarkt 20, 9000 Gent", coords: [51.05605071097153, 3.722623492766377] },
+        { id: "super-friet", name: "Super Friet", address: "Brusselsesteenweg 376, 9050 Gent", coords: [51.03973385540796, 3.7446735691149597] },
+        { id: "louiss", name: "Frituur Louiss", address: "Sint-Kwintensberg 34, 9000 Gent", coords: [51.04554454102543, 3.7228269979506816] },
+        { id: "t-pleintje", name: "Frituur 't Pleintje", address: "Zwijnaardsesteenweg 318, 9000 Gent", coords: [51.028791725596484, 3.7222250132922285] },
+    ];
+
+    var markers = {};
+
+    locations.forEach(function (loc) {
+      var marker = L.marker(loc.coords)
+        .addTo(map)
+        .bindPopup("<strong>" + loc.name + "</strong><br>" + loc.address);
+
+      markers[loc.id] = marker;
+    });
+
+    document.querySelectorAll(".agenda-item").forEach(item => {
+      const id = item.dataset.id;
+      const marker = markers[id];
+
+      if (!marker) return;
+
+      item.addEventListener("mouseenter", () => {
+        marker.setIcon(highlightIcon);
+        marker.openPopup();
+      });
+
+      item.addEventListener("mouseleave", () => {
+        marker.setIcon(defaultIcon);
+        marker.closePopup();
+      });
+    });
+  </script>
+
+</body>
+</html>
