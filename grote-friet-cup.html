@@ -187,6 +187,12 @@
       color: #333;
     }
 
+    .agenda-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
     /* Agenda + Map layout */
     .agenda-map-grid {
       display: grid;
@@ -207,6 +213,206 @@
       width: 100%;
       height: 100%;
       min-height: 420px;
+    }
+
+    /* RSVP Button */
+    .rsvp-button {
+      padding: 0.4rem 1rem;
+      background: #b63007;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      margin-left: 1rem;
+    }
+
+    .rsvp-button:hover {
+      background: #A32B06;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;              <p class="event-description">
+
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+      color: #2c2c2c;
+      margin-bottom: 0.5rem;
+      border: none;
+      padding: 0;
+    }
+
+    .modal-header p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .close-button {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .close-button:hover {
+      color: #333;
+    }
+
+    /* Form Styles */
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #b63007;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-note {
+      font-size: 0.85rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .submit-button {
+      flex: 1;
+      padding: 0.75rem;
+      background: #b63007;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .submit-button:hover:not(:disabled) {
+      background: #A32B06;
+    }
+
+    .submit-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .cancel-button {
+      flex: 1;
+      padding: 0.75rem;
+      background: #f5f5f5;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .cancel-button:hover {
+      background: #e0e0e0;
+    }
+
+    .success-message {
+      display: none;
+      padding: 1rem;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-radius: 6px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    .error-message {
+      display: none;
+      padding: 1rem;
+      background: #ffebee;
+      color: #c62828;
+      border-radius: 6px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .error-message.active {
+      display: block;
     }
 
     /* Responsive */
@@ -379,251 +585,218 @@
       margin: 0 0.5rem;
     }
     
-    /* Responsive */
+    /* Mobile styles */
     @media (max-width: 768px) {
       body {
         padding: 1rem;
       }
-      
+
       .header {
-        flex-direction: column;
-        text-align: center;
+        margin-bottom: 2.5rem;
       }
       
       .header img {
-        margin-right: 0;
+        margin-right: 15px;
+      }
+      
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .header p {
+        color: #666;
+        font-size: 1rem;
+      }
+      
+      /* Event Hero */
+      .event-hero {
+        margin: 2rem 0;
+        padding: 0 0.25rem;
+      }
+      
+      .event-hero h1 {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
         margin-bottom: 1rem;
       }
       
-      .event-hero {
-        padding: 2rem 1rem;
+      .event-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .event-hero .subtitle {
+        font-size: 0.75rem;
+      }
+      
+      /* Section headings */
+      h3 {
+        font-size: 1.5rem;
+      }
+      
+      /* Agenda + Map Grid */
+      .agenda-map-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      /* Agenda items */
+      .agenda {
+        padding: 1rem;
       }
       
       .agenda-item {
         flex-direction: column;
         align-items: flex-start;
+        padding: 1rem;
       }
       
       .agenda-date {
+        width: 100%;
+        font-size: 1rem;
         margin-bottom: 0.5rem;
       }
       
-      .agenda-status {
-        margin-top: 0.5rem;
+      .agenda-location {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
       }
       
+      .agenda-status {
+        margin-right: 0.5rem;
+        margin-bottom: 0;
+      }
+      
+      .rsvp-button {
+        margin-left: 0;
+        padding: 0.45rem 0.6rem;
+        border-radius: 10px;
+        width: auto;
+        font-size: 0.85rem;
+      }
+      
+      /* Map */
+      .agenda-map #map {
+        min-height: 300px;
+      }
+      
+      /* Restaurant grid */
       .restaurants-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
-    }
 
-
-    /* RSVP Button */
-    .rsvp-button {
-      padding: 0.4rem 1rem;
-      background: #b63007;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      margin-left: 1rem;
-    }
-
-    .rsvp-button:hover {
-      background: #A32B06;
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-header {
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-header h3 {
-      font-size: 1.5rem;
-      color: #2c2c2c;
-      margin-bottom: 0.5rem;
-      border: none;
-      padding: 0;
-    }
-
-    .modal-header p {
-      color: #666;
-      font-size: 0.95rem;
-    }
-
-    .close-button {
-      float: right;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #999;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      line-height: 1;
-    }
-
-    .close-button:hover {
-      color: #333;
-    }
-
-    /* Form Styles */
-    .rsvp-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #333;
-      font-size: 0.95rem;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color 0.2s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #b63007;
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .form-note {
-      font-size: 0.85rem;
-      color: #666;
-      font-style: italic;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .submit-button {
-      flex: 1;
-      padding: 0.75rem;
-      background: #b63007;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .submit-button:hover:not(:disabled) {
-      background: #A32B06;
-    }
-
-    .submit-button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .cancel-button {
-      flex: 1;
-      padding: 0.75rem;
-      background: #f5f5f5;
-      color: #333;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .cancel-button:hover {
-      background: #e0e0e0;
-    }
-
-    .success-message {
-      display: none;
-      padding: 1rem;
-      background: #e8f5e9;
-      color: #2e7d32;
-      border-radius: 6px;
-      margin-top: 1rem;
-      text-align: center;
-    }
-
-    .success-message.active {
-      display: block;
-    }
-
-    .error-message {
-      display: none;
-      padding: 1rem;
-      background: #ffebee;
-      color: #c62828;
-      border-radius: 6px;
-      margin-top: 1rem;
-      text-align: center;
-    }
-
-    .error-message.active {
-      display: block;
-    }
-
-    @media (max-width: 768px) {
+      /* Modal */
       .modal-content {
+        width: 95%;
         padding: 1.5rem;
+        max-height: 85vh;
+      }
+      
+      .modal-header h3 {
+        font-size: 1.3rem;
       }
       
       .form-actions {
         flex-direction: column;
+      }
+      
+      .submit-button,
+      .cancel-button {
+        width: 100%;
+      }
+
+      .section-intro {
+        margin-top: 2rem;
+        font-size: 0.75rem;
+        font-style: italic;
+      }
+      
+      /* Footer */
+      footer {
+        font-size: 0.85rem;
+        padding: 1.5rem 0 1rem;
+      }
+      
+      footer a {
+        display: inline-block;
+        margin: 0.25rem 0.25rem;
+      }
+    }
+
+    /* Small mobile phones */
+    @media (max-width: 480px) {
+      .event-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .agenda {
+        padding: 0.75rem;
+      }
+      
+      .agenda-item {
+        padding: 0.75rem 0.5rem;
+      }
+      
+      .agenda-date {
+        font-size: 0.95rem;
+      }
+      
+      .agenda-location {
+        font-size: 0.95rem;
+      }
+      
+      h3 {
+        font-size: 1.3rem;
+      }
+      
+      .modal-content {
+        padding: 1rem;
+      }
+    }
+
+    /* Landscape mode on phones */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      
+      .event-hero {
+        margin: 1.5rem 0;
+      }
+      
+      .event-hero h1 {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    /* Touch device improvements */
+    @media (hover: none) and (pointer: coarse) {
+      /* Make buttons bigger for touch */
+      .submit-button,
+      .cancel-button {
+        min-height: 48px;
+      }
+      
+      /* Remove hover effects on touch devices */
+      .agenda-item:hover {
+        transform: none;
+      }
+      
+      .restaurant-card:hover {
+        transform: none;
+      }
+      
+      /* Better tap targets */
+      .close-button {
+        padding: 0.5rem;
+        margin: -0.5rem;
+      }
+      
+      /* Improve form inputs on mobile */
+      .form-group input,
+      .form-group textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
       }
     }
 
@@ -661,71 +834,91 @@
         <div class="agenda-item upcoming" data-id="friet-time" data-event-name="Friet Time Gent" data-event-date="Do 12/02 18u">
           <div class="agenda-date">Week 1 - 12/02 18u</div>
           <div class="agenda-location">Friet Time Gent - Lammerstraat 9</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="gouden-sate" data-event-name="De Gouden Saté" data-event-date="Do 19/02 18u">
           <div class="agenda-date">Week 2 - 19/02 18u</div>
           <div class="agenda-location">De Gouden Saté - Sint-Pietersplein 28</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="chasse-patat" data-event-name="Friterie Chasse Patat" data-event-date="Do 26/02 18u">
           <div class="agenda-date">Week 3 - 26/02 18u</div>
           <div class="agenda-location">Friterie Chasse Patat - Ijzerlaan 9</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="bij-filip" data-event-name="Frituur Bij Filip" data-event-date="Do 5/03 18u">
           <div class="agenda-date">Week 4 - 5/03 18u</div>
           <div class="agenda-location">Frituur Bij Filip - Groentenmarkt</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="benjis" data-event-name="Frituur Benji’s" data-event-date="Do 12/03 18u">
           <div class="agenda-date">Week 5 - 12/03 18u</div>
           <div class="agenda-location">Frituur Benji’s - Sint-Kwintensberg 56</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="emilys" data-event-name="Emily's" data-event-date="Do 19/03 18u">
           <div class="agenda-date">Week 6 - 19/03 18u</div>
           <div class="agenda-location">Emily's - Zwijnaardsesteenweg 153</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="frites-atelier" data-event-name="Frites Atelier" data-event-date="Do 26/03 18u">
           <div class="agenda-date">Week 7 - 26/03 18u</div>
           <div class="agenda-location">Frites Atelier - Groentenmarkt 20</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="super-friet" data-event-name="Super Friet" data-event-date="Do 2/04 18u">
           <div class="agenda-date">Week 8 - 2/04 18u</div>
           <div class="agenda-location">Super Friet - Brusselsesteenweg 376</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="louiss" data-event-name="Frituur Louiss" data-event-date="Do 23/04 18u">
           <div class="agenda-date">Week 11 - 23/04 18u</div>
           <div class="agenda-location">Frituur Louiss - Sint-Kwintensberg 34</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
 
         <div class="agenda-item upcoming" data-id="t-pleintje" data-event-name="Frituur 't Pleintje" data-event-date="Do 7/05 18u">
           <div class="agenda-date">Week 13 - 7/05 18u</div>
           <div class="agenda-location">Frituur 't Pleintje - Zwijnaardsesteenweg 318</div>
-          <span class="agenda-status upcoming">Upcoming</span>
-          <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          <div class="agenda-actions">
+            <span class="agenda-status upcoming">Upcoming</span>
+            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+          </div>
         </div>
       </div>
 
