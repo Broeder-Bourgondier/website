@@ -8,6 +8,7 @@
   
   <link rel="icon" type="image/png" href="assets/bb-min.png">
   <link rel="apple-touch-icon" href="assets/bb_new.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <link
     rel="stylesheet"
@@ -44,11 +45,6 @@
       transition: color 0.2s ease;
     }
     
-    a:hover {
-      color: #654321;
-      text-decoration: underline;
-    }
-    
     /* Header */
     .header {
       display: flex;
@@ -82,7 +78,7 @@
     }
 
     .event-hero h1 {
-      font-size: clamp(3.2rem, 6vw, 4.8rem);
+      font-size: clamp(3rem, 6vw, 4rem);
       color: #2c2c2c;
       margin-bottom: 1.5rem;
       font-family: Georgia, 'Times New Roman', Times, serif;
@@ -256,8 +252,7 @@
       padding: 2rem;
       border-radius: 12px;
       width: 90%;
-      max-width: 500px;              <p class="event-description">
-
+      max-width: 500px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       max-height: 90vh;
       overflow-y: auto;
@@ -457,6 +452,10 @@
     .restaurant-content {
       padding: 1.5rem;
     }
+
+    .restaurant-content {
+      padding: 1.5rem;
+    }
     
     .restaurant-header {
       margin-bottom: 1rem;
@@ -496,6 +495,13 @@
       border-radius: 6px;
     }
     
+    .restaurant-rating .rating-number {
+      font-weight: bold;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+    }
+
     .rating-label {
       font-weight: 600;
       margin-right: 0.5rem;
@@ -504,7 +510,6 @@
     
     .rating-stars {
       color: #ffd54f;
-      font-size: 1.2rem;
     }
     
     .restaurant-highlights {
@@ -523,12 +528,12 @@
       font-weight: 600;
     }
     
-    .highlight-tag.price {
+    .highlight-tag.blue {
       background: #e3f2fd;
       color: #1565c0;
     }
     
-    .highlight-tag.student {
+    .highlight-tag.orange {
       background: #fff3e0;
       color: #ef6c00;
     }
@@ -583,6 +588,11 @@
     
     footer a {
       margin: 0 0.5rem;
+    }
+
+    footer a:hover {
+      color: #654321;
+      text-decoration: underline;
     }
     
     /* Mobile styles */
@@ -938,39 +948,43 @@
   <!-- Reviews Section -->
   <section>
     <h3>Onze Bezoeken</h3>
-    
-    <p class="section-intro">Nog geen bezoeken gedaan</p>
 
-    <!-- Example frituur info -->
-
-    <!--
     <div class="restaurants-grid">
       <div class="restaurant-card">
-        <img src="assets/placeholder-frituur.jpg" alt="Frituur" class="restaurant-image">
         <div class="restaurant-content">
           <div class="restaurant-header">
-            <h4 class="restaurant-name">Frituur</h4>
-            <p class="restaurant-location">📍 Sint-Michielsplein 10, 9000 Gent</p>
+            <h4 class="restaurant-name">Friet Time Gent</h4>
+            <p class="restaurant-location">📍 Lammerstraat 9</p>
           </div>
           
-          <p class="restaurant-date">Bezocht op 10 februari 2026</p>
+          <p class="restaurant-date">Bezocht op 12 februari 2026</p>
           
           <p class="restaurant-description">
-            Een klassieke frituur in het hart van de studentenbuurt. Bekend om hun kroketten 
-            en vriendelijke bediening. Ideaal voor een snelle hap tussen de lessen.
+            Een kleine frituur op wandelafstand van de Ufo. Ideaal voor een snelle hap tussen de lessen door,
+            of tijdens het uitgaan.
           </p>
           
           <div class="restaurant-rating">
             <span class="rating-label">Onze beoordeling:</span>
-            <span class="rating-stars">★★★★☆</span>
+            <div class="rating-number">
+              <strong>7</strong>
+            </div>
+            <div class="rating-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
           </div>
           
           <div class="restaurant-highlights">
-            <span class="highlight-tag">Goed bereikbaar</span>
-            <span class="highlight-tag student">Studentenkorting</span>
-            <span class="highlight-tag price">€ Betaalbaar</span>
+            <span class="highlight-tag">Goede ligging</span>
+            <span class="highlight-tag blue">Vriendelijk personeel</span>
+            <span class="highlight-tag orange">7/7 geopend</span>
           </div>
           
+          <!--
           <div class="restaurant-details">
             <div class="detail-row">
               <span class="detail-label">Kleine friet:</span>
@@ -989,13 +1003,14 @@
               <span class="detail-value">10% op vertoon studentenkaart</span>
             </div>
           </div>
+          -->
           
-          <a href="#" class="read-more">Lees volledige review →</a>
+          <a href="friet-time-gent.html" class="read-more">Lees volledige review →</a>
+
         </div>
       </div>
-      
     </div>
-    -->
+
 
   </section>
 
