@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Grote Broodjes Ranking</title>
+
+  <link rel="icon" type="image/png" href="assets/bb-min.png">
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .header img {
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #2c2c2c;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      line-height: 1.1;
+    }
+
+    .header p {
+      margin: 0.25rem 0 0 0;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: #666;
+      font-size: 0.95rem;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 4rem;
+    }
+    
+    footer a {
+      margin: 0 0.5rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: #8b4513;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #654321;
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 4rem);
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #2c2c2c;
+      margin-bottom: 1.5rem;
+    }
+
+    h2.description {
+      font-weight: 400;
+      margin-bottom: 2rem;
+      font-size: 1.3rem;
+    }
+
+    #sandwich-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .sandwich {
+      background: white;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sandwich h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      color: #8b4513;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+      user-select: none;
+    }
+
+    .star {
+      position: relative;
+      font-size: 24px;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.1s ease;
+    }
+
+    .star::before {
+      content: "★";
+    }
+
+    .star.full {
+      color: #ffb300;
+    }
+
+    .star.half {
+      color: #ddd;
+    }
+
+    .star.half::after {
+      content: "★";
+      position: absolute;
+      left: 0;
+      width: 50%;
+      overflow: hidden;
+      color: #ffb300;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #8b4513;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #654321;
+    }
+
+    .success {
+      margin-top: 1rem;
+      color: green;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .header {
+        margin-bottom: 2.5rem;
+      }
+      
+      .header img {
+        margin-right: 15px;
+      }
+      
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .header p {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem 0 1rem;
+        color: #666;
+        font-size: 0.95rem;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 4rem;
+      }
+
+      footer a {
+        margin: 0 0.5rem;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <img src="assets/bb_new.webp" alt="BB Logo" width="100">
+    <div>
+      <h1>Broeder Bourgondiër</h1>
+      <p>Gentse studentenvereniging</p>
+    </div>
+  </div>
+
+  <h1>De Grote Broodjes Ranking</h1>
+  <h2 class="description">
+    Geef elk UGent restobroodje een score op 5 sterren, of laat leeg als je het nog niet hebt geprobeerd.<br>
+    Aan het einde van het semester kronen we het broodje met de hoogste gemiddelde score tot winnaar!
+  </h2>
+
+  <div id="sandwich-list"></div>
+
+  <button onclick="submitRatings()">Stemmen</button>
+  <div id="success-message" class="success"></div>
+
+  <footer>
+    <p>
+      <a href="index.html">Home</a> | 
+      <a href="about.html">About</a> | 
+      <a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | 
+      <a href="mailto:bestuur@broederbourgondier.be">bestuur@broederbourgondier.be</a>
+    </p>
+  </footer>
+
+  <script>
+  const sandwiches = [
+    { id: 1, name: "Brie", price: "€3,35" },
+    { id: 2, name: "Caesar", price: "€3,45" },
+    { id: 3, name: "Serranoham met truffelmayonaise", price: "€3,10" },
+    { id: 4, name: "Kaas met groenten", price: "€2,80" },
+    { id: 5, name: "Maison", price: "€3,25" },
+    { id: 6, name: "Geitenkaas met peer", price: "€3,25" },
+    { id: 7, name: "Kip curry", price: "€2,85" },
+    { id: 8, name: "Frisse gerookte zalmsalade", price: "€3,25" },
+    { id: 9, name: "Paté met honing-mosterd", price: "€2,85" },
+    { id: 10, name: "Kruidige groentespread", price: "€3,00" }
+  ];
+
+  const ratings = {};
+
+  const container = document.getElementById("sandwich-list");
+
+  sandwiches.forEach(s => {
+    const div = document.createElement("div");
+    div.className = "sandwich";
+
+    div.innerHTML = `
+      <h3>${s.name}</h3>
+      <div class="price">${s.price}</div>
+      <div class="stars" data-id="${s.id}"></div>
+    `;
+
+    container.appendChild(div);
+
+    const starContainer = div.querySelector(".stars");
+
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement("span");
+      star.className = "star";
+      star.dataset.value = i;
+      starContainer.appendChild(star);
+    }
+
+    starContainer.addEventListener("mousemove", e => handleHover(e, starContainer));
+    starContainer.addEventListener("mouseleave", () => renderStars(starContainer, ratings[s.id] || 0));
+    starContainer.addEventListener("click", e => handleClick(e, starContainer, s.id));
+  });
+
+  function getStarFromEvent(e) {
+    return e.target.closest(".star");
+  }
+
+  function calculateValue(e, starElement) {
+    const rect = starElement.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const isHalf = x < rect.width / 2;
+
+    const baseValue = Number(starElement.dataset.value);
+    return baseValue - (isHalf ? 0.5 : 0);
+  }
+
+  function handleHover(e, container) {
+    const star = getStarFromEvent(e);
+    if (!star) return;
+
+    const value = calculateValue(e, star);
+    renderStars(container, value);
+  }
+
+  function handleClick(e, container, id) {
+    const star = getStarFromEvent(e);
+    if (!star) return;
+
+    const value = calculateValue(e, star);
+    ratings[id] = value;
+    renderStars(container, value);
+  }
+
+  function renderStars(container, value) {
+    const stars = container.querySelectorAll(".star");
+    stars.forEach((star, index) => {
+      const starValue = index + 1;
+      star.classList.remove("full", "half");
+
+      if (value >= starValue) {
+        star.classList.add("full");
+      } else if (value >= starValue - 0.5) {
+        star.classList.add("half");
+      }
+    });
+  }
+
+  function submitRatings() {
+    if (Object.keys(ratings).length === 0) {
+      alert("Geef minstens één broodje een score!");
+      return;
+    }
+
+    console.log("Submitting:", ratings);
+
+    document.getElementById("success-message").innerText =
+      "Bedankt voor je stem! 🥪";
+  }
+  </script>
+
+</body>
+</html>
