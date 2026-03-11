@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Goude Saté - De Grote Friet Cup</title>
+  <meta name="description" content="Onze review van De Goude saté">
+  
+  <link rel="icon" type="image/png" href="../assets/bb-min.png">
+  <link rel="apple-touch-icon" href="../assets/bb_new.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    a {
+      text-decoration: none;
+      color: #8b4513;
+      transition: color 0.2s ease;
+    }
+    
+    a:hover {
+      color: #654321;
+      text-decoration: underline;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    .back-link:hover {
+      color: #333;
+    }
+    
+    /* Restaurant Header */
+    .restaurant-header {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .header-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    }
+    
+    .header-content {
+      padding: 2rem;
+    }
+    
+    .restaurant-title {
+      font-size: 2.5rem;
+      color: #2c2c2c;
+      margin-bottom: 0.5rem;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    .restaurant-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .overall-rating {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    .restaurant-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .tag.green {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    
+    .tag.blue {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+    
+    .tag.orange {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+    
+    /* Content Section */
+    .content-section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      color: #2c2c2c;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #8b4513;
+    }
+    
+    .section-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+    
+    /* Rating Breakdown */
+    .rating-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .rating-item {
+      padding: 1.5rem;
+      background: #fafafa;
+      border-radius: 10px;
+      border-left: 4px solid #8b4513;
+    }
+
+    .rating-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .rating-category {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .rating-description {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .rating-value {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .rating-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #8b4513;
+    }
+
+    .rating-score {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #8b4513;
+    }
+    
+    .rating-stars {
+      font-size: 1.2rem;
+      color: #ffd54f;
+    }
+    
+    .rating-stars-small {
+      color: #ffd54f;
+      font-size: 0.7rem;
+    }
+    
+    /* ================= MENU BOARD TABLE ================= */
+
+    .menu-wrapper {
+      overflow-x: auto;
+    }
+
+    .menu-board {
+      width: max-content;
+      border-collapse: collapse;
+      min-width: 1100px;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    /* Category headers (Frieten, Sauzen, ...) */
+    .menu-board th {
+      background: #fafafa;
+      color: #8b4513;
+      padding: 1rem 0.75rem;
+      border-bottom: 2px solid #8b4513;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    /* Item / € subheader row */
+    .menu-board .sub-head th {
+      background: #fff;
+      color: #666;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* --- COLUMN STRUCTURE --- */
+
+    /* Item columns */
+    .menu-board th:nth-child(odd),
+    .menu-board td:nth-child(odd) {
+      padding-left: 12px;
+      padding-right: 25px;
+    }
+
+    /* Price columns */
+    .menu-board td:nth-child(even) {
+      text-align: right;
+      padding-right: 20px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .menu-board td:nth-child(2),
+    .menu-board .sub-head th:nth-child(2),
+    .menu-board td:nth-child(4),
+    .menu-board .sub-head th:nth-child(4),
+    .menu-board td:nth-child(8),
+    .menu-board .sub-head th:nth-child(8),
+    .menu-board td:nth-child(10),
+    .menu-board .sub-head th:nth-child(10),
+    .menu-board td:nth-child(12),
+    .menu-board .sub-head th:nth-child(12),
+    .menu-board td:nth-child(16),
+    .menu-board .sub-head th:nth-child(16) {
+      border-right: 1px solid #ddd;
+    }
+
+    /* Make € header align with numbers */
+    .menu-board .sub-head th:nth-child(even) {
+      text-align: right;
+      padding-right: 18px;
+      color: #8b4513;
+      font-weight: 600;
+    }
+
+    /* Table body cells */
+    .menu-board td {
+      padding-top: 0.65rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    /* Price styling */
+    .menu-board td:nth-child(even) {
+      font-weight: 600;
+      color: #8b4513;
+    }
+
+    /* Hover effect */
+    .menu-board tr:hover td {
+      background: #fafafa;
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .gallery-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #e0e0e0;
+    }
+    
+    /* Pros & Cons */
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    
+    .pros-cons-section {
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    
+    .pros-section {
+      background: #e8f5e9;
+    }
+    
+    .cons-section {
+      background: #ffebee;
+    }
+    
+    .pros-cons-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .pros-section .pros-cons-title {
+      color: #2e7d32;
+    }
+    
+    .cons-section .pros-cons-title {
+      color: #c62828;
+    }
+    
+    .pros-cons-list {
+      list-style: none;
+    }
+    
+    .pros-cons-list li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .pros-cons-list li::before {
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    
+    .pros-section li::before {
+      content: "✓";
+      color: #2e7d32;
+    }
+    
+    .cons-section li::before {
+      content: "✗";
+      color: #c62828;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: #666;
+      font-size: 0.95rem;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 4rem;
+    }
+    
+    footer a {
+      margin: 0 0.5rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .header-image {
+        height: 250px;
+      }
+      
+      .restaurant-title {
+        font-size: 2rem;
+      }
+      
+      .pros-cons-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .rating-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="../grote-friet-cup.html" class="back-link">← Terug naar De Grote Friet Cup</a>
+  
+  <!-- Restaurant Header -->
+  <div class="restaurant-header">
+    <img src="../assets/degoudensate/degoudensate.png" alt="De Gouden Saté" class="header-image">
+    <div class="header-content">
+      <h1 class="restaurant-title">De Gouden Saté</h1>
+      
+      <div class="restaurant-meta">
+        <div class="meta-item">
+          <span>📍</span>
+          <span>Sint-Pietersplein 28</span>
+        </div>
+        <div class="meta-item">
+          <span>📅</span>
+          <span>Bezocht op 19 februari 2026</span>
+        </div>
+      </div>
+      
+      <div class="overall-rating">
+        <div class="rating-score">8.7</div>
+        <div>
+          <div class="rating-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div style="color: #666; font-size: 0.9rem;">Onze totaalbeoordeling</div>
+        </div>
+      </div>
+      
+      <div class="restaurant-tags">
+        <span class="tag green">Goede ligging</span>
+        <span class="tag blue">Vriendelijk personeel</span>
+        <span class="tag orange">Tot zeer laat geopen</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Introduction -->
+  <div class="content-section">
+    <h2 class="section-title">Over De Gouden Saté</h2>
+    <p class="section-text">
+      De Gouden Saté is een bekende frituur in Gent, gelegen aan het Sint-Pietersplein. Het is de geboorteplaats van het beroemde Julientje en is door de jaren <br>
+      heen uitgegroeid tot een klein culinair icoon van de stad. Met zijn zeer late openingsuren is deze frituur niet weg te denken uit het Gentse uitgaansleven.
+
+    </p>
+    <p class="section-text">
+      Met een fantastische score van 8,7 zal De Gouden Saté wellicht hoog eindigen in onze ranglijst! <br> 
+      Wij zijn benieuwd hoeveel van de komende frituren nog in de buurt van zo’n hoge score zullen komen...
+    </p>
+  </div>
+  
+  <!-- Detailed Ratings -->
+  <div class="content-section">
+    <h2 class="section-title">Beoordeling</h2>
+    <div class="rating-list">
+
+      <div class="rating-item">
+        <div class="rating-header">
+          <div class="rating-category">Kwaliteit Friet</div>
+          <div class="rating-value">
+            <span class="rating-number">9.2</span>
+            <div class="rating-stars-small">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="rating-description">
+          De frieten waren net zoals je ze zou verwachten in een klassieke frituur als De Gouden Saté - krokant, en lekker zacht vanbinnen. Niks op aan te merken.
+        </p>
+      </div>
+
+      <div class="rating-item">
+        <div class="rating-header">
+          <div class="rating-category">Snacks</div>
+          <div class="rating-value">
+            <span class="rating-number">8.8</span>
+            <div class="rating-stars-small">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="rating-description">
+           Bij De Gouden Saté moésten we natuurlijk een Julientje bestellen. Deze was perfect gekruid, en de stoofvleessaus was heerlijk.<br>
+           De enige opmerking die we hadden was dat de portie net iets groter mocht zijn. De andere snacks waren ook in orde.
+        </p>
+      </div>
+
+      <div class="rating-item">
+        <div class="rating-header">
+          <div class="rating-category">Portiegrootte</div>
+          <div class="rating-value">
+            <span class="rating-number">9.0</span>
+            <div class="rating-stars-small">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="rating-description">
+          Een medium friet bij De Gouden Saté kost €4, wat net iets duurder is dan gemiddeld. Gelukkig krijg je er ook een grote hoeveelheid (540g) voor, <br>
+          wat dit toch een eerlijke prijs maakt.
+        </p>
+      </div>
+
+      <div class="rating-item">
+        <div class="rating-header">
+          <div class="rating-category">Vriendelijkheid & bediening</div>
+          <div class="rating-value">
+            <span class="rating-number">10</span>
+            <div class="rating-stars-small">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="rating-description">
+          De bediening bij De Gouden Saté is een voorbeeld van hoe het hoort te zijn: zeer warme en vriendelijke mensen die je bestelling snel klaar hebben.        </p>
+      </div>
+
+      <div class="rating-item">
+        <div class="rating-header">
+          <div class="rating-category">Sfeer & accomodatie</div>
+          <div class="rating-value">
+            <span class="rating-number">6.5</span>
+            <div class="rating-stars-small">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="rating-description">
+          De frituur is zeer klein, maar wel gezellig. Er kunnen maar een aantal mensen binnen staan, en er zijn geen zitplaatsen.<br>
+          Omdat je er niet kunt zitten kunnen we voor deze categorie niet een heel hoge score geven, maar door de sfeer geven we toch een 6.5/10.<br>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Volledig Menu -->
+  <div class="content-section">
+    <h2 class="section-title">Menu</h2>
+
+    <div class="menu-wrapper">
+      <table class="menu-board">
+        <thead>
+          <tr>
+            <th colspan="2">Frieten</th>
+            <th colspan="2">Specialiteiten</th>
+            <th colspan="4">Koude Sauzen</th>
+            <th colspan="2">Warme Sauzen</th>
+            <th colspan="2">Burgers</th>
+            <th colspan="4">Vlees</th>
+            <th colspan="2">Drank</th>
+          </tr>
+
+          <tr class="sub-head">
+            <th>Item</th><th>€</th>
+            <th>Item</th><th>€</th>
+
+            <th>Item</th><th>€</th>
+            <th>Item</th><th>€</th>
+
+            <th>Item</th><th>€</th>
+            <th>Item</th><th>€</th>
+
+            <th>Item</th><th>€</th>
+
+            <th>Item</th><th>€</th>
+            <th>Item</th><th>€</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Klein</td><td>3,50</td>
+            <td>Julientje</td><td>9,50</td>
+
+            <td>Amerikaanse</td><td>1,00</td>
+            <td>Andalouse</td><td>1,00</td>
+
+            <td>Verse stoofvleessaus</td><td>2,50</td>
+            <td>Hamburger</td><td>4,50</td>
+
+            <td>Aperio</td><td>4,50</td>
+            <td>Ardenense saté</td><td>5,00</td>
+
+            <td>Cola / Zero 33cl</td><td>2,00</td>
+          </tr>
+
+          <tr>
+            <td>Medium</td><td>4,00</td>
+            <td>Rombautje</td><td>10,00</td>
+
+            <td>Bicky saus</td><td>1,00</td>
+            <td>Cocktail</td><td>1,00</td>
+
+            <td>Speciaal op vlees</td><td>+1,00</td>
+            <td>Bicky Crispy Burger</td><td>4,50</td>
+
+            <td>Bitterballen (5st.)</td><td>3,00</td>
+            <td>Boulet</td><td>3,00</td>
+
+            <td>Cola 50cl</td><td>2,50</td>
+          </tr>
+
+          <tr>
+            <td>Groot</td><td>4,50</td>
+            <td>Friet Royal klein</td><td>7,50</td>
+
+            <td>Curry</td><td>1,00</td>
+            <td>Curry ketchup</td><td>1,00</td>
+
+            <td>Speciaal op friet</td><td>+2,00</td>
+            <td>Bicky Cheese</td><td>5,00</td>
+
+            <td>Chixfingers</td><td>4,50</td>
+            <td>Frikandel</td><td>2,00</td>
+
+            <td>Fanta 33cl</td><td>2,00</td>
+          </tr>
+
+          <tr>
+            <td>Frieten met stoofvlees</td><td>9,50</td>
+            <td>Friet Royal medium</td><td>8,00</td>
+
+            <td>Looksaus</td><td>1,00</td>
+            <td>Mammoetsaus</td><td>1,00</td>
+
+            <td>Stoverij apart</td><td>7,00</td>
+            <td>Fishburger</td><td>5,00</td>
+
+            <td>Kaaskroket</td><td>2,00</td>
+            <td>Garnaalkroket</td><td>4,00</td>
+
+            <td>Sprite 33cl</td><td>2,00</td>
+          </tr>
+
+          <tr>
+            <td>Frieten met vol-au-vent</td><td>9,50</td>
+            <td>Friet Royal groot</td><td>8,50</td>
+
+            <td>Mayonnaise</td><td>1,00</td>
+            <td>Pepersaus</td><td>1,00</td>
+
+            <td>Vol-au-vent apart</td><td>7,00</td>
+            <td>Chickenburger</td><td>5,00</td>
+
+            <td>Vleeskroket</td><td>2,50</td>
+            <td>Bami</td><td>4,50</td>
+
+            <td>Ice Tea</td><td>2,20</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Tim's</td><td>9,50</td>
+
+            <td>Pickles</td><td>1,00</td>
+            <td>Pilli Pilli</td><td>1,00</td>
+
+            <td>Bicky ajuintjes</td><td>+0,20</td>
+            <td>Vegiburger</td><td>5,50</td>
+
+            <td>Mini loempia’s</td><td>4,50</td>
+            <td>Lookworst</td><td>4,50</td>
+
+            <td>Gini</td><td>2,20</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Maradonna</td><td>9,50</td>
+
+            <td>Samoerai</td><td>1,00</td>
+            <td>Tartare</td><td>1,00</td>
+
+            <td>Verse ajuintjes</td><td>+0,20</td>
+            <td>Ribburger</td><td>6,50</td>
+
+            <td>Mini Lucifer</td><td>4,50</td>
+            <td>Mammoet frikandel</td><td>3,50</td>
+
+            <td>Plat water 50cl</td><td>2,50</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Beddeleem</td><td>9,00</td>
+
+            <td>Tomatenketchup</td><td>1,00</td>
+            <td>Toscaanse saus</td><td>1,00</td>
+
+            <td></td><td></td>
+            <td>Bicky Crispy Royal</td><td>7,50</td>
+
+            <td>Mexicano</td><td>3,50</td>
+            <td>Ragoezi</td><td>4,50</td>
+
+            <td>Spuitwater 50cl</td><td>2,50</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Glennie</td><td>5,00</td>
+
+            <td>Vlammensaus</td><td>1,00</td>
+            <td>Zoete frietsaus</td><td>1,00</td>
+
+            <td></td><td></td>
+            <td>Vegetarische bitterballen</td><td>5,00</td>
+
+            <td>Saté</td><td>4,50</td>
+            <td>Sito</td><td>4,50</td>
+
+            <td>Red Bull</td><td>3,00</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Cappoentje</td><td>5,00</td>
+
+            <td>Joppie saus</td><td>1,00</td>
+            <td>Jamballa</td><td>1,00</td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td>Taco</td><td>4,00</td>
+            <td>Viandel</td><td>3,00</td>
+
+            <td>Jupiler 33cl</td><td>2,50</td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td>Bicky Orange</td><td>6,50</td>
+
+            <td>Sauzen in potje</td><td>+0,10</td>
+            <td></td><td></td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td>Visstick</td><td>5,00</td>
+            <td>Vuurvreter</td><td>4,50</td>
+
+            <td></td><td></td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td>Zigeunerstick</td><td>4,50</td>
+            <td>Crunchy</td><td>5,00</td>
+
+            <td></td><td></td>
+          </tr>
+
+          <tr>
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td></td><td></td>
+            <td></td><td></td>
+
+            <td>Mozzarella sticks</td><td>4,50</td>
+            <td>Kippets</td><td>4,50</td>
+
+            <td></td><td></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <!-- Photos -->
+  <div class="content-section">
+    <h2 class="section-title">Foto's</h2>
+    <div class="image-gallery">
+      <img src="assets/degoudensate/20260219_180319.jpg" 
+       alt="Friet met kroket" 
+       class="gallery-image">
+      <img src="assets/degoudensate/20260219_182039.jpg" 
+       alt="Friet met kroket" 
+       class="gallery-image">
+       <img src="assets/degoudensate/20260219_182426.jpg" 
+       alt="Friet met kroket" 
+       class="gallery-image">
+       <img src="assets/degoudensate/20260219_182344.jpg" 
+       alt="Friet met kroket" 
+       class="gallery-image">
+    </div>
+  </div>
+  
+  <!-- Pros & Cons -->
+  <div class="content-section">
+    <h2 class="section-title">Plus- en minpunten</h2>
+    <div class="pros-cons-grid">
+      <div class="pros-cons-section pros-section">
+        <h3 class="pros-cons-title">Pluspunten</h3>
+        <ul class="pros-cons-list">
+          <li>Centrale ligging, makkelijk bereikbaar</li>
+          <li>Super vriendelijk en warm personeel</li>
+          <li>Groot assortiment aan sauzen en snacks</li>
+          <li>Tot zeer laat geopend </li>
+        </ul>
+      </div>
+      
+      <div class="pros-cons-section cons-section">
+        <h3 class="pros-cons-title">Minpunten</h3>
+        <ul class="pros-cons-list">
+          <li>Geen zitplaats</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>
+      <a href="../index.html">Home</a> | 
+      <a href="../about.html">About</a> | 
+      <a href="../grote-friet-cup.html">De Grote Friet Cup</a> |
+      <a href="https://discord.gg/PjxcQh43cs">Join our Discord</a> | 
+      <a href="mailto:bestuur@broederbourgondier.be">bestuur@broederbourgondier.be</a>
+    </p>
+  </footer>
+
+</body>
+</html>

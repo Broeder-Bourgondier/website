@@ -152,7 +152,13 @@
     .agenda-item.upcoming {
       border-left-color: #ffd54f;
     }
-    
+
+    .agenda-item.cancelled {
+      border-left-color: #e53935;
+      opacity: 0.7;
+      background: #fff5f5;
+    }
+
     .agenda-date {
       width: 155px;          
       flex-shrink: 0;        
@@ -181,6 +187,11 @@
     .agenda-status.upcoming {
       background: #ffd54f;
       color: #333;
+    }
+
+    .agenda-status.cancelled {
+      background: #e53935;
+      color: white;
     }
 
     .agenda-actions {
@@ -857,21 +868,19 @@
           </div>
         </div>
 
-        <div class="agenda-item upcoming" data-id="chasse-patat" data-event-name="Friterie Chasse Patat" data-event-date="Do 26/02 18u">
+        <div class="agenda-item cancelled" data-id="chasse-patat" data-event-name="Friterie Chasse Patat" data-event-date="Do 26/02 18u">
           <div class="agenda-date">Week 3 - 26/02 18u</div>
           <div class="agenda-location">Friterie Chasse Patat - Ijzerlaan 9</div>
           <div class="agenda-actions">
-            <span class="agenda-status upcoming">Upcoming</span>
-            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+            <span class="agenda-status cancelled">Uitgesteld</span>
           </div>
         </div>
 
-        <div class="agenda-item upcoming" data-id="bij-filip" data-event-name="Frituur Bij Filip" data-event-date="Do 5/03 18u">
+        <div class="agenda-item completed" data-id="tpleintje" data-event-name="Frituur 't Pleintje'" data-event-date="Do 5/03 18u">
           <div class="agenda-date">Week 4 - 5/03 18u</div>
-          <div class="agenda-location">Frituur Bij Filip - Groentenmarkt</div>
+          <div class="agenda-location">Frituur 't Pleintje - Zwijnaardsesteenweg 318</div>
           <div class="agenda-actions">
-            <span class="agenda-status upcoming">Upcoming</span>
-            <button class="rsvp-button" onclick="openRSVP(this.closest('.agenda-item'))">Ik kom!</button>
+            <span class="agenda-status completed">Bezocht</span>
           </div>
         </div>
 
@@ -1007,6 +1016,65 @@
 
         </div>
       </div>
+      <div class="restaurant-card">
+        <div class="restaurant-content">
+          <div class="restaurant-header">
+            <h4 class="restaurant-name">De Gouden Saté</h4>
+            <p class="restaurant-location">📍 Sint-Pietersplein 28</p>
+          </div>
+          
+          <p class="restaurant-date">Bezocht op 19 februari 2026</p>
+          
+          <p class="restaurant-description">
+            Een klassieke en iconische frituur centraal gelegen in Gent, <br>
+            die niet weg is te denken uit het Gentse uitgaansleven.
+          </p>
+          
+          <div class="restaurant-rating">
+            <span class="rating-label">Onze beoordeling:</span>
+            <div class="rating-number">
+              <strong>8.7</strong>
+            </div>
+            <div class="rating-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          
+          <div class="restaurant-highlights">
+            <span class="highlight-tag">Goede ligging</span>
+            <span class="highlight-tag blue">Vriendelijk personeel</span>
+            <span class="highlight-tag orange">Tot zeer laat geopend</span>
+          </div>
+          
+          <!--
+          <div class="restaurant-details">
+            <div class="detail-row">
+              <span class="detail-label">Kleine friet:</span>
+              <span class="detail-value">€3,20</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Frikandel:</span>
+              <span class="detail-value">€2,50</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Kroket:</span>
+              <span class="detail-value">€2,30</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Studentenkorting:</span>
+              <span class="detail-value">10% op vertoon studentenkaart</span>
+            </div>
+          </div>
+          -->
+          
+          <a href="de-gouden-sate.html" class="read-more">Lees volledige review →</a>
+
+        </div>
+      </div>
     </div>
 
 
@@ -1047,7 +1115,7 @@
         { id: "friet-time", name: "Friet Time Gent", address: "Lammerstraat 9, 9000 Gent", coords: [51.04819907933057, 3.7278912997994698] },
         { id: "gouden-sate", name: "De Gouden Saté", address: "Sint-Pietersplein 28, 9000 Gent", coords: [51.04173115658245, 3.726263601095631] },
         { id: "chasse-patat", name: "Friterie Chasse Patat", address: "Ijzerlaan 9, 9000 Gent", coords: [51.04278203052914, 3.718412597164473] },
-        { id: "bij-filip", name: "Frituur Bij Filip", address: "Groentenmarkt, 9000 Gent", coords: [51.05607614004983, 3.72221192678657] },
+        { id: "tpleintje", name: "Frituur 't Pleintje", address: "Zwijnaardsesteenweg 318, 9000 Gent", coords: [51.028791725594154, 3.722160640763249] },
         { id: "benjis", name: "Frituur Benji’s", address: "Sint-Kwintensberg 56, 9000 Gent", coords: [51.04491145188629, 3.7235984709638585] },
         { id: "emilys", name: "Emily's", address: "Zwijnaardsesteenweg 153, 9000 Gent", coords: [51.03348340598059, 3.724808099799014] },
         { id: "frites-atelier", name: "Frites Atelier", address: "Groentenmarkt 20, 9000 Gent", coords: [51.05605071097153, 3.722623492766377] },
